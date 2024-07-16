@@ -1,0 +1,14 @@
+# Query 7: Find Trajectories with Multiple "Subtle Events"
+PREFIX sett: <http://purl.org/net/sett#>
+PREFIX setKG: <http://purl.org/net/traces/knowledgegraph/setKG/>
+
+SELECT ?trajectory (COUNT(?event) AS ?SubtleEventCount)
+WHERE {
+  ?trajectory a sett:SemanticTrajectory ;
+              sett:hasEvent ?event .
+  ?event sett:hasAnnotationEvent <http://purl.org/net/sett#AnnotationEvent/Subtle> .
+}
+GROUP BY ?trajectory
+HAVING (COUNT(?event) > 1)
+ORDER BY DESC(?SubtleEventCount)
+

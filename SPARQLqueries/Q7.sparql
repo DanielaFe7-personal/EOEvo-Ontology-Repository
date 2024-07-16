@@ -1,0 +1,30 @@
+# Query that finds municipalities with the same annotation patterns Increase and then Decrease
+# Even located at different elevations, some communes evolve the same.
+PREFIX setKG: <http://purl.org/net/traces/knowledgegraph/setKG/>
+PREFIX sett: <http://purl.org/net/sett#>
+PREFIX traces-geo: <http://purl.org/net/traces/dataset/geo/>
+
+PREFIX tsn: <http://purl.org/net/tsn#>
+SELECT DISTINCT ?name ?country ?elev 
+WHERE {
+  ?commune a sett:TerritorialUnit ;
+           sett:hasMVT ?mvt .
+
+  ?mvt sett:hasSemanticTrajectory ?semTraj .
+  
+  ?semTraj a sett:SemanticTrajectory ;
+           sett:hasEpisode ?episode1, ?episode2 ;
+           sett:hasPointOfView setKG:SnowPointOfView .
+  
+  ?episode1 sett:hasAnnotationEpisodeAbstract <http://purl.org/net/sett#AbstractAnnotation/Increase> ;
+            sett:hasEpisodeOrder ?order1 .
+
+  ?episode2 sett:hasAnnotationEpisodeAbstract <http://purl.org/net/sett#AbstractAnnotation/Decrease> ;
+            sett:hasEpisodeOrder ?order2 .
+    
+ ?commune sett:meanElevationMeters ?elev ;
+          tsn:hasName ?name ; sett:country ?country ; tsn:hasIdentifier ?id .
+  
+  FILTER(?order2 = ?order1 + 1)
+}
+ORDER BY ?elev

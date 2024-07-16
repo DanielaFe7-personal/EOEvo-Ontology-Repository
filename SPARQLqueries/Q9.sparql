@@ -1,0 +1,71 @@
+# Query that obtain communes that both Temperature and Urbanization have last Episode decreaing
+PREFIX setKG: <http://purl.org/net/traces/knowledgegraph/setKG/>
+PREFIX sett: <http://purl.org/net/sett#>
+PREFIX traces-geo: <http://purl.org/net/traces/dataset/geo/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+PREFIX tsn: <http://purl.org/net/tsn#>
+SELECT DISTINCT ?name ?country ?elev
+WHERE {
+  {
+    SELECT DISTINCT ?commune
+    WHERE {
+      ?commune a sett:TerritorialUnit ;
+               sett:hasMVT ?mvt .
+
+      ?mvt sett:hasSemanticTrajectory ?semTraj .
+      
+      ?semTraj a sett:SemanticTrajectory ;
+               sett:hasPointOfView setKG:TemperaturePointOfView ;
+               sett:hasEpisode ?lastEpisode .
+      
+      ?lastEpisode sett:hasAnnotationEpisodeAbstract <http://purl.org/net/sett#AbstractAnnotation/Decrease> ;
+                   sett:hasEpisodeOrder ?lastOrder .
+
+      # Ensure ?lastOrder is the highest episode order in the semantic trajectory
+      FILTER NOT EXISTS {
+        ?semTraj sett:hasEpisode ?otherEpisode .
+        ?otherEpisode sett:hasEpisodeOrder ?otherOrder .
+        FILTER(?otherOrder > ?lastOrder)
+      }
+    }
+  } 
+  {
+    SELECT DISTINCT ?commune
+    WHERE {
+      ?commune a sett:TerritorialUnit ;
+               sett:hasMVT ?mvt .
+            
+     
+
+      ?mvt sett:hasSemanticTrajectory ?semTraj .
+      
+      ?semTraj a sett:SemanticTrajectory ;
+               sett:hasPointOfView setKG:UrbanizationPointOfView ;
+               sett:hasEpisode ?lastEpisode .
+      
+      ?lastEpisode sett:hasAnnotationEpisodeAbstract <http://purl.org/net/sett#AbstractAnnotation/Decrease> ;
+                   sett:hasEpisodeOrder ?lastOrder .
+
+      # Ensure ?lastOrder is the highest episode order in the semantic trajectory
+      FILTER NOT EXISTS {
+        ?semTraj sett:hasEpisode ?otherEpisode .
+        ?otherEpisode sett:hasEpisodeOrder ?otherOrder .
+        FILTER(?otherOrder > ?lastOrder)
+      }
+    }
+  }
+  # Ensure the communes are the same in both subqueries
+  FILTER EXISTS {
+    SELECT DISTINCT ?commune
+    WHERE {
+      ?commune a sett:TerritorialUnit .
+    }
+  }
+    ?commune sett:meanElevationMeters ?elev ;
+             tsn:hasName ?name ;
+             sett:country ?country ;
+             tsn:hasIdentifier ?id .
+}
+ORDER by  ?elev
+

@@ -1,0 +1,23 @@
+# Query that obtains the maximum number of break points for a five point of view among all the communes
+
+PREFIX sett: <http://purl.org/net/sett#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX setKG: <http://purl.org/net/traces/knowledgegraph/setKG/>
+
+SELECT ?date (COUNT(?date) as ?dateFrequency)
+WHERE {
+  ?tu rdf:type sett:TerritorialUnit .
+  ?tu sett:hasMVT ?mvt .
+  ?mvt sett:hasSemanticTrajectory ?semanticTrajectory .
+  ?semanticTrajectory sett:hasPointOfView ?pointOfView ;
+                      sett:hasEvent ?event .
+  ?event sett:EventIsAnnotatedFrom ?break .
+  ?break sett:hasDateBreak ?date .
+  FILTER (?pointOfView = setKG:TemperaturePointOfView)
+}
+GROUP BY  ?date
+ORDER BY DESC(?dateFrequency)
+LIMIT 5
+

@@ -1,0 +1,19 @@
+# Query: Find the Most Frequent Number of Episodes
+PREFIX sett: <http://purl.org/net/sett#>
+PREFIX setKG: <http://purl.org/net/traces/knowledgegraph/setKG/>
+
+SELECT ?episodeCount (COUNT(?trajectory) AS ?frequency)
+WHERE {
+  {
+    SELECT ?trajectory (COUNT(?episode) AS ?episodeCount)
+    WHERE {
+      ?trajectory a sett:SemanticTrajectory ;
+                  sett:hasEpisode ?episode .
+    }
+    GROUP BY ?trajectory
+  }
+}
+GROUP BY ?episodeCount
+ORDER BY DESC(?frequency)
+LIMIT 1
+

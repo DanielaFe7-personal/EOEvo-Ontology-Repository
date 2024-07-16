@@ -1,0 +1,14 @@
+#Query 1: Find the Semantic Trajectory with the Most Episodes
+
+PREFIX sett: <http://purl.org/net/sett#>
+PREFIX setKG: <http://purl.org/net/traces/knowledgegraph/setKG/>
+
+SELECT ?trajectory (COUNT(?episode) AS ?episodeCount)
+WHERE {
+  ?trajectory a sett:SemanticTrajectory ;
+              sett:hasEpisode ?episode .
+}
+GROUP BY ?trajectory
+ORDER BY DESC(?episodeCount)
+LIMIT 1
+

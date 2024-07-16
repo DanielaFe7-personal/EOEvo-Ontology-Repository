@@ -1,0 +1,366 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sett: <http://purl.org/net/sett#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sett:Break a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Break"@en ;
+    rdfs:comment "A break (or breakpoint) belongs to a structured trajectory and denotes a significative change in the time series. It is calculated using Segmentation algorithms."@en ;
+    skos:prefLabel "Break"@en .
+
+sett:Episode a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Episode"@en ;
+    rdfs:comment "An episode belongs to a semantic trajectory and is the result of annotating a trend component."@en ;
+    skos:prefLabel "Episode"@en .
+
+sett:Event a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Event"@en ;
+    rdfs:comment "An event belongs to a semantic trajectory and is the result of annotating a break component."@en ;
+    skos:prefLabel "Event"@en .
+
+sett:FittedBegin a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Fitted Begin"@en ;
+    rdfs:comment "Fitted begin corresponds to the first fitted value, marking the start of the Trend."@en ;
+    rdfs:subClassOf sett:FittedMeasure ;
+    skos:prefLabel "FittedBegin"@en .
+
+sett:FittedEnd a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Fitted End"@en ;
+    rdfs:comment "Fitted end represents the final predicted value in the trend, potentially coinciding with a breakpoint if it does not mark the end of the entire Trend sequence."@en ;
+    rdfs:subClassOf sett:FittedMeasure ;
+    skos:prefLabel "FittedEnd"@en .
+
+sett:FittedMeasure a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Fitted Measure"@en ;
+    rdfs:comment "Fitted measures in linear regression are the predicted values calculated by the regression model."@en ;
+    skos:definition "Fitted measures in linear regression are the predicted values calculated by the regression model."@en ;
+    skos:prefLabel "FittedMeasure"@en .
+
+sett:MultipleViewpointTrajectory a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Multiple Viewpoint Trajectory"@en ;
+    rdfs:comment "When a trajectory is associated with many viewpoints, these trajectories are known as Multiple Viewpoint Trajectories (MVT)."@en ;
+    skos:prefLabel "MultipleViewpointTrajectory"@en .
+
+sett:Observation a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Observation"@en ;
+    rdfs:comment "An observation belongs to a raw trajectory and represents a measurement in the original time series."@en ;
+    rdfs:subClassOf qb:Observation ;
+    skos:prefLabel "Observation"@en .
+
+sett:PointOfView a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Point Of View"@en ;
+    rdfs:comment "A semantic trajectory monitors one point of wiew, such as environmental domains."@en ;
+    skos:prefLabel "PointOfView"@en .
+
+sett:RawTrajectory a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Raw Trajectory"@en ;
+    rdfs:comment "Raw trajectories are sequences of observations performed by agents, such as territorial units."@en ;
+    skos:prefLabel "Raw Trajectory"@en .
+
+sett:SemanticTrajectory a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Semantic Trajectory"@en ;
+    rdfs:comment "Semantic trajectories are the result of annotating structured trajectories as sequences of Episodes and Events."@en ;
+    skos:prefLabel "Semantic Trajectory"@en .
+
+sett:Slice a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Slice"@en ;
+    rdfs:comment "A slice belongs to a raw trajectory and refers to a group of observations from the original time series used to calculate a given trend."@en ;
+    rdfs:subClassOf qb:Slice ;
+    skos:prefLabel "Slice"@en .
+
+sett:StructuredTrajectory a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Structured Trajectory"@en ;
+    rdfs:comment "Structured trajectories are the result of segment Raw trajectories into sequences of Trends and Breaks."@en ;
+    skos:prefLabel "Structured Trajectory"@en .
+
+sett:Trend a rdfs:Class,
+        owl:Class ;
+    rdfs:label "Trend"@en ;
+    rdfs:comment "A trend belongs to a structured trajectory and is calculated using Segmentation  algorithms."@en ;
+    skos:prefLabel "Trend"@en .
+
+sett: a owl:Ontology ;
+    dc:abstract "The negative impact of human activities on our planet has increased the interest of stakeholders — from policymakers to citizens — in monitoring and understanding local environmental changes. However, despite being openly available, remotely-sensed Earth observation Time Series (EO-TS) are complex and difficult for non-experts to interpret. We introduce the EO-evo (Earth Observation Evolution) ontology to to describe the Environmental semantic trajectories of EO data for both expert and non-expert users."@en ;
+    dc:description "EO-evo is a multi-layer ontology designed to describe the semantic trajectories of Earth Observation (EO) data within the Environmental domain. The ontology embeds three types of trajectories: raw, structured, and semantic. These trajectories provide a comprehensive framework for capturing, organizing, and analyzing the spatio-temporal evolution of Earth’s dynamics."@en ;
+    dc:title "The EO-evo ontology"@en ;
+    dcterms:created "July 12th, 2024"@en ;
+    dcterms:creator "(1) Daniela Fernanda Milon-Flores"@en,
+        "(2) Camille Bernard"@en,
+        "(3) Jérôme Gensel"@en,
+        "(4) Gregory Giuliani"@en ;
+    dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
+    schema:citation "Cite this vocabulary as: Milon-Flores, D. ; Bernard, C. ; Gensel, J. and Giuliani, G. The EO-evo ontology 1.0"@en ;
+    owl:versionIRI <http://purl.org/net/sett/1.0> ;
+    owl:versionInfo "1.0"@en .
+
+sett:EpisodeIsAnnotatedFrom a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "Episode is Annotated from"@en ;
+    rdfs:comment "An Episode is annotated from a Trend."@en ;
+    rdfs:domain sett:Episode ;
+    rdfs:range sett:Trend ;
+    skos:prefLabel "EpisodeIsAnnotatedFrom"@en .
+
+sett:EventIsAnnotatedFrom a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "Event is Annotated From"@en ;
+    rdfs:comment "An Event is Annotated From a Break."@en ;
+    rdfs:domain sett:Event ;
+    rdfs:range sett:Break ;
+    skos:prefLabel "EventIsAnnotatedFrom"@en .
+
+sett:algorithmAppliedBreak a rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "algorithm Applied for the Break detection"@en ;
+    rdfs:comment "Refers to the applied algorithm used for the Break detection."@en ;
+    rdfs:domain sett:StructuredTrajectory ;
+    rdfs:range rdfs:Literal ;
+    skos:prefLabel "algorithmAppliedBreak"@en .
+
+sett:algorithmAppliedTrend a rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "algorithm Applied for the Trend detection"@en ;
+    rdfs:comment "Refers to the applied algorithm used for the Trend detection."@en ;
+    rdfs:domain sett:StructuredTrajectory ;
+    rdfs:range rdfs:Literal ;
+    skos:prefLabel "algorithmAppliedTrend"@en .
+
+sett:correspondsTo a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "corresponds To"@en ;
+    rdfs:comment " "@en ;
+    rdfs:domain sett:Break ;
+    rdfs:range sett:Observation ;
+    skos:prefLabel "correspondsTo"@en .
+
+sett:hasAnnotationEpisodeAbstract a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Annotation Abstract"@en ;
+    rdfs:comment "The Episode is annotated with semantic descriptions. This annotations corresponds to the Abstract layer."@en ;
+    rdfs:domain sett:Episode ;
+    rdfs:range skos:Concept ;
+    skos:prefLabel "hasAnnotationAbstract"@en .
+
+sett:hasAnnotationEpisodeDomain a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Annotation Episode Domain"@en ;
+    rdfs:comment "The Episode is annotated with semantic descriptions. This annotations corresponds to the Environmental domain layer."@en ;
+    rdfs:domain sett:Episode ;
+    rdfs:range skos:Concept ;
+    skos:prefLabel "hasAnnotationEpisodeDomain"@en .
+
+sett:hasAnnotationEvent a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Annotation Event"@en ;
+    rdfs:comment "The Event is annotated with semantic descriptions."@en ;
+    rdfs:domain sett:Event ;
+    rdfs:range skos:Concept ;
+    skos:prefLabel "hasAnnotationEvent"@en .
+
+sett:hasBreak a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Break"@en ;
+    rdfs:comment "A Structured trajectory has zero or more Breaks."@en ;
+    rdfs:domain sett:StructuredTrajectory ;
+    rdfs:range sett:Break ;
+    skos:prefLabel "hasBreak"@en .
+
+sett:hasDate a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Date"@en ;
+    rdfs:comment "Denotes the date of a fitted measurement."@en ;
+    rdfs:domain sett:FittedMeasure ;
+    rdfs:range sett:DateTimeDescription ;
+    skos:prefLabel "hasDate"@en .
+
+sett:hasDateBreak a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Date"@en ;
+    rdfs:comment "Denotes the approximate date of the breakpoint."@en ;
+    rdfs:domain sett:Break ;
+    rdfs:range sett:DateTimeDescription ;
+    skos:prefLabel "hasDate"@en .
+
+sett:hasDomain a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Domain"@en ;
+    rdfs:comment "Denotes the Environmental domain."@en ;
+    rdfs:domain sett:PointOfView ;
+    rdfs:range skos:Concept ;
+    skos:prefLabel "hasDomain"@en .
+
+sett:hasEpisode a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Episode"@en ;
+    rdfs:comment "A Semantic trajectory has one or more Episodes."@en ;
+    rdfs:domain sett:SemanticTrajectory ;
+    rdfs:range sett:Episode ;
+    skos:prefLabel "hasEpisode"@en .
+
+sett:hasEpisodeOrder a rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "has Episode Order"@en ;
+    rdfs:comment "Denotes the Episode Order."@en ;
+    rdfs:domain sett:Episode ;
+    rdfs:range xsd:integer ;
+    skos:prefLabel "hasEpisodeOrder"@en .
+
+sett:hasEvent a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Event"@en ;
+    rdfs:comment "A Semantic trajectory has zero or more Events."@en ;
+    rdfs:domain sett:SemanticTrajectory ;
+    rdfs:range sett:Event ;
+    skos:prefLabel "hasEvent"@en .
+
+sett:hasEventOrder a rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "has Event Order"@en ;
+    rdfs:comment "Denotes the Episode Order."@en ;
+    rdfs:domain sett:Event ;
+    rdfs:range xsd:integer ;
+    skos:prefLabel "hasEventOrder"@en .
+
+sett:hasFittedBegin a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Fitted Begin"@en ;
+    rdfs:comment "The trend line starts with its first fitted value."@en ;
+    rdfs:domain sett:Trend ;
+    rdfs:range sett:FittedBegin ;
+    skos:prefLabel "hasFittedBegin"@en .
+
+sett:hasFittedEnd a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Fitted End"@en ;
+    rdfs:comment "The trend line finishes with its last fitted value."@en ;
+    rdfs:domain sett:Trend ;
+    rdfs:range sett:FittedEnd ;
+    skos:prefLabel "hasFittedEnd"@en .
+
+sett:hasFittedValue a rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "has Fitted Value"@en ;
+    rdfs:comment "The fitted measure has a value."@en ;
+    rdfs:domain sett:FittedMeasure ;
+    rdfs:range xsd:float ;
+    skos:prefLabel "hasFittedValue"@en .
+
+sett:hasInterceptValue a rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "has Intercept Value"@en ;
+    rdfs:comment "Refers to the intercept value of the Trend line."@en ;
+    rdfs:domain sett:Trend ;
+    rdfs:range xsd:float ;
+    skos:prefLabel "hasInterceptValue"@en .
+
+sett:hasMVT a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Multiple Viewpoint Trajectory (MVT)"@en ;
+    rdfs:comment "A Territorial Unit (TU) has Multiple Viewpoint Trajectory (MVT)."@en ;
+    rdfs:domain sett:TerritorialUnit ;
+    rdfs:range sett:MultipleViewpointTrajectory ;
+    skos:prefLabel "hasMVT"@en .
+
+sett:hasMagnitudeValue a rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "has Magnitude Value"@en ;
+    rdfs:comment "The breakpoint is associated with a magnitude value, which is the distance between the breakpoint and the consecutive point."@en ;
+    rdfs:domain sett:Break ;
+    rdfs:range xsd:float ;
+    skos:prefLabel "hasMagnitudeValue"@en .
+
+sett:hasObservation a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Observation"@en ;
+    rdfs:comment "A raw trajectory consists of one or more observations that represent its movement."@en ;
+    rdfs:domain sett:RawTrajectory ;
+    rdfs:range sett:Observation ;
+    skos:prefLabel "hasObservation"@en .
+
+sett:hasPValue a rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "has p-value"@en ;
+    rdfs:comment "Refers to the p-value obtained from the regression analysis."@en ;
+    rdfs:domain sett:Trend ;
+    rdfs:range xsd:float ;
+    skos:prefLabel "hasPValue"@en .
+
+sett:hasPointOfView a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Point Of View"@en ;
+    rdfs:comment "A Semantic trajectory has a Point Of View."@en ;
+    rdfs:domain sett:SemanticTrajectory ;
+    rdfs:range sett:PointOfView ;
+    skos:prefLabel "hasPointOfView"@en .
+
+sett:hasSemanticTrajectory a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Semantic Trajectory"@en ;
+    rdfs:comment "A Multiple Viewpoint Trajectory (MVP) is composed of one Semantic trajectory."@en ;
+    rdfs:domain sett:MultipleViewpointTrajectory ;
+    rdfs:range sett:SemanticTrajectory ;
+    skos:prefLabel "hasSemanticTrajectory"@en .
+
+sett:hasSlopeValue a rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "has Slope Value"@en ;
+    rdfs:comment "Refers to the slope value of the Trend line."@en ;
+    rdfs:domain sett:Trend ;
+    rdfs:range xsd:float ;
+    skos:prefLabel "hasSlopeValue"@en .
+
+sett:hasTrend a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "has Trend"@en ;
+    rdfs:comment "A Structured trajectory has one or more Trends."@en ;
+    rdfs:domain sett:StructuredTrajectory ;
+    rdfs:range sett:Trend ;
+    skos:prefLabel "hasTrend"@en .
+
+sett:isCalculatedFrom a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "is Calculated From"@en ;
+    rdfs:comment "A Trend is calculated from a Slice."@en ;
+    rdfs:domain sett:Trend ;
+    rdfs:range sett:Slice ;
+    skos:prefLabel "isCalculatedFrom"@en .
+
+sett:isComposedOfObservation a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "is Composed Of Observation"@en ;
+    rdfs:comment "Slices are composed of Observations."@en ;
+    rdfs:domain sett:Slice ;
+    rdfs:range sett:Observation ;
+    skos:prefLabel "isComposedOfObservation"@en .
+
+sett:monitorsIndice a rdf:Property,
+        owl:ObjectProperty ;
+    rdfs:label "monitorsI ndice"@en ;
+    rdfs:comment "An Environmental domain monitors an Indice."@en ;
+    rdfs:domain skos:Concept ;
+    rdfs:range skos:Concept ;
+    skos:prefLabel "monitorsIndice"@en .
+
+sett:TerritorialUnit a owl:Class .
+
+sett:DateTimeDescription a owl:Class .
+

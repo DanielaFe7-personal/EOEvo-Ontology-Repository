@@ -1,0 +1,31 @@
+# Query that find Temperature semantic trajectories with las Episode == Decrease
+PREFIX setKG: <http://purl.org/net/traces/knowledgegraph/setKG/>
+PREFIX sett: <http://purl.org/net/sett#>
+PREFIX traces-geo: <http://purl.org/net/traces/dataset/geo/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?commune ?elev
+WHERE {
+  ?commune a sett:TerritorialUnit ;
+           sett:hasMVT ?mvt .
+
+  ?mvt sett:hasSemanticTrajectory ?semTraj .
+  
+  ?semTraj a sett:SemanticTrajectory ;
+           sett:hasPointOfView setKG:TemperaturePointOfView ;
+           sett:hasEpisode ?lastEpisode .
+  
+  ?lastEpisode sett:hasAnnotationEpisodeAbstract <http://purl.org/net/sett#AbstractAnnotation/Decrease> ;
+               sett:hasEpisodeOrder ?lastOrder .
+    
+   ?commune sett:meanElevationMeters ?elev .
+
+  # Ensure ?lastOrder is the highest episode order in the semantic trajectory
+  FILTER NOT EXISTS {
+    ?semTraj sett:hasEpisode ?otherEpisode .
+    ?otherEpisode sett:hasEpisodeOrder ?otherOrder .
+    FILTER(?otherOrder > ?lastOrder)
+  }
+}
+ORDER by ?elev
+

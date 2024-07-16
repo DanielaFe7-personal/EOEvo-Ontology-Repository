@@ -1,0 +1,121 @@
+@prefix sett: <http://purl.org/net/sett#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+sett:AnnotationEpisode a skos:Concept ;
+    skos:hasTopConcept sett:AbstractAnnotation,
+        sett:EnvironmentalDomainAnnotation ;
+    skos:prefLabel "Annotation Episode" .
+
+sett:AnnotationEvent a skos:Concept ;
+    skos:narrower <http://purl.org/net/sett#AnnotationEvent/Medium>,
+        <http://purl.org/net/sett#AnnotationEvent/Strong>,
+        <http://purl.org/net/sett#AnnotationEvent/Subtle> ;
+    skos:prefLabel "Annotation Event" .
+
+sett:AbstractAnnotation a skos:Concept ;
+    skos:narrower <http://purl.org/net/sett#AbstractAnnotation/Decrease>,
+        <http://purl.org/net/sett#AbstractAnnotation/Increase>,
+        <http://purl.org/net/sett#AbstractAnnotation/Stable> ;
+    skos:prefLabel "Abstract Annotation" .
+
+<http://purl.org/net/sett#AbstractAnnotation/Decrease> a skos:Concept ;
+    skos:prefLabel "Decrease" .
+
+<http://purl.org/net/sett#AbstractAnnotation/Increase> a skos:Concept ;
+    skos:prefLabel "Increase" .
+
+<http://purl.org/net/sett#AbstractAnnotation/Stable> a skos:Concept ;
+    skos:prefLabel "Stable" .
+
+<http://purl.org/net/sett#AnnotationEvent/Medium> a skos:Concept ;
+    skos:prefLabel "Medium" .
+
+<http://purl.org/net/sett#AnnotationEvent/Strong> a skos:Concept ;
+    skos:prefLabel "Strong" .
+
+<http://purl.org/net/sett#AnnotationEvent/Subtle> a skos:Concept ;
+    skos:prefLabel "Subtle" .
+
+sett:EnvironmentalDomainAnnotation a skos:Concept ;
+    skos:narrower <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Snow>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Temperature>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Urban>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Vegetation>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Water> ;
+    skos:prefLabel "Environmental Domain Annotation" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Snow> a skos:Concept ;
+    skos:narrower <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Snow/Melting>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Snow/Snowing>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Snow/Stable> ;
+    skos:prefLabel "Snow" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Snow/Melting> a skos:Concept ;
+    skos:prefLabel "Melting" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Snow/Snowing> a skos:Concept ;
+    skos:prefLabel "Snowing" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Snow/Stable> a skos:Concept ;
+    skos:prefLabel "Stable snow cover" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Temperature> a skos:Concept ;
+    skos:narrower <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Temperature/Cooling>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Temperature/Stable>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Temperature/Warming> ;
+    skos:prefLabel "Temperature" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Temperature/Cooling> a skos:Concept ;
+    skos:prefLabel "Cooling" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Temperature/Stable> a skos:Concept ;
+    skos:prefLabel "Stable temperature" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Temperature/Warming> a skos:Concept ;
+    skos:prefLabel "Warming" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Urban> a skos:Concept ;
+    skos:narrower <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Urban/Ruralization>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Urban/Stable>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Urban/Urbanization> ;
+    skos:prefLabel "Urban" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Urban/Ruralization> a skos:Concept ;
+    skos:prefLabel "Ruralization" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Urban/Stable> a skos:Concept ;
+    skos:prefLabel "Stable urban areas" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Urban/Urbanization> a skos:Concept ;
+    skos:prefLabel "Urbanization" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Vegetation> a skos:Concept ;
+    skos:narrower <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Vegetation/Browning>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Vegetation/Greening>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Vegetation/Stable> ;
+    skos:prefLabel "Vegetation" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Vegetation/Browning> a skos:Concept ;
+    skos:prefLabel "Browning" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Vegetation/Greening> a skos:Concept ;
+    skos:prefLabel "Greening" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Vegetation/Stable> a skos:Concept ;
+    skos:prefLabel "Stable vegetation" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Water> a skos:Concept ;
+    skos:narrower <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Water/Stable>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Water/WaterDecrease>,
+        <http://purl.org/net/sett#EnvironmentalDomainAnnotation/Water/WaterIncrease> ;
+    skos:prefLabel "Water" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Water/Stable> a skos:Concept ;
+    skos:prefLabel "Stable water levels" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Water/WaterDecrease> a skos:Concept ;
+    skos:prefLabel "Water decrease" .
+
+<http://purl.org/net/sett#EnvironmentalDomainAnnotation/Water/WaterIncrease> a skos:Concept ;
+    skos:prefLabel "Water increase" .
+
