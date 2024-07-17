@@ -1,0 +1,17 @@
+# Query that counts the number of observations in each slice
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX qb:      <http://purl.org/linked-data/cube#>
+PREFIX traces-qb:  <http://purl.org/net/traces/dataset/qb/>
+PREFIX traces-time: <http://purl.org/net/traces/dataset/time/>
+
+
+SELECT ?slice (COUNT(?slice) as ?obsCount)
+WHERE {
+    ?dataset qb:slice       ?slice .
+    ?slice   qb:observation ?obs .
+    ?obs	traces-qb:dimensionTime	?time .
+    
+}
+GROUP BY ?slice
+

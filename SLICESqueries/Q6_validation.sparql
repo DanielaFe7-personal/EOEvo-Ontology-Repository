@@ -1,0 +1,36 @@
+# Query that checks if fitted begin/end date match raw slices values.
+# This does not always ocurred to to slices (raw) value have missing data and Fitted trend values have interpoalted data.
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX traces-qb: <http://purl.org/net/traces/dataset/qb/>
+PREFIX traces-geo: <http://purl.org/net/traces/dataset/geo/>
+PREFIX traces-codelist: <http://purl.org/net/traces/codelist/>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX sett: <http://purl.org/net/sett#>
+PREFIX setKG: <http://purl.org/net/traces/knowledgegraph/setKG/>
+
+PREFIX traces-time: <http://purl.org/net/traces/dataset/time/>
+SELECT ?Trend ?Slice ?TrendinitDate ?earliestObsDate WHERE {
+  ?municipality a sett:TerritorialUnit ;
+                sett:hasMVT ?MVT .
+  ?MVT sett:hasSemanticTrajectory ?semTraj .
+  ?semTraj sett:hasEpisode ?Episode .
+  ?Episode sett:EpisodeIsAnnotatedFrom ?Trend .
+  ?Trend sett:isCalculated ?Slice ;
+         sett:hasFittedBegin ?FittedBegin .
+  ?FittedBegin sett:hasDate ?TrendinitDate .
+
+  # Subquery to get the earliest observation date for each slice
+  {
+    SELECT ?Slice (MIN(?obsDate) AS ?earliestObsDate) WHERE {
+      ?Slice qb:observation ?observation .
+      ?observation traces-qb:dimensionTime ?obsDate .
+    }
+    GROUP BY ?Slice
+  }
+
+  # Ensure the FittedBegin date matches the earliest observation date
+  # if == is ok; but some values are not the same. So in TrendinitDateit (19990115 created with Interpolation BEAST) should be < earliestObsDate (19990415). 
+  FILTER(?TrendinitDate != ?earliestObsDate) 
+}
+

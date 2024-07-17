@@ -1,0 +1,26 @@
+# Query that obtains the min and max date values of each slice
+PREFIX qb:      <http://purl.org/linked-data/cube#>
+PREFIX traces-qb:  <http://purl.org/net/traces/dataset/qb/>
+PREFIX traces-geo: <http://purl.org/net/traces/dataset/geo/>
+PREFIX traces-codelist: <http://purl.org/net/traces/codelist/>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?slice (MIN(?date) AS ?minDate) (MAX(?date) AS ?maxDate)
+WHERE {
+  
+    ?slice traces-qb:dimensionArea traces-geo:CH2122 ; 
+           traces-qb:dimensionIndice traces-codelist:st ;
+           qb:observation ?observation .
+
+    ?observation traces-qb:dimensionTime ?time .
+
+    ?time time:year ?year ;
+          time:month ?month ;
+          time:day ?day .
+          
+    BIND (CONCAT(STR(?year), "-", 
+                 IF(STRLEN(STR(?month)) = 1, CONCAT("0", STR(?month)), STR(?month)), "-", 
+                 IF(STRLEN(STR(?day)) = 1, CONCAT("0", STR(?day)), STR(?day))) AS ?date)
+}
+GROUP BY ?slice
+

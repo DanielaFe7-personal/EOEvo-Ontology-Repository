@@ -1,0 +1,17 @@
+# Obtain the slices frequency when group by Area or Indice dimension
+PREFIX qb:      <http://purl.org/linked-data/cube#>
+PREFIX traces-qb:  <http://purl.org/net/traces/dataset/qb/>
+
+
+# GROUP by area; there are exactly 373 associated slices one for each municipality
+# GROUP by indices; there are exactly 5 associated slices one for each indices
+
+SELECT DISTINCT ?dimFixedIndice  # dimFixedArea
+WHERE {
+    ?dataset qb:slice ?slice .
+    ?slice   qb:observation ?obs ;
+     traces-qb:dimensionArea ?dimFixedArea ;
+     traces-qb:dimensionIndice  ?dimFixedIndice .
+   
+}
+GROUP BY ?dimFixedIndice # dimFixedArea

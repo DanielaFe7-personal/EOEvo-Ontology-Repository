@@ -1,0 +1,22 @@
+# Query that obtains the slices associated to a given municipality and indice
+
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX qb:      <http://purl.org/linked-data/cube#>
+PREFIX traces-qb:  <http://purl.org/net/traces/dataset/qb/>
+PREFIX traces-time: <http://purl.org/net/traces/dataset/time/>
+
+
+PREFIX traces-geo: <http://purl.org/net/traces/dataset/geo/>
+PREFIX traces-codelist: <http://purl.org/net/traces/codelist/>
+SELECT DISTINCT ?slice 
+WHERE {
+    traces-qb:Seasonaly-LIS-dataset  qb:slice   ?slice .
+    ?slice   qb:observation ?obs ;
+     traces-qb:dimensionArea traces-geo:CH2102 ;
+     traces-qb:dimensionIndice	traces-codelist:NDVI .
+}
+ORDER BY ?time
+
+
+

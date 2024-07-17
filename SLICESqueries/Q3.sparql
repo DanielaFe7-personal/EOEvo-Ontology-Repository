@@ -1,0 +1,27 @@
+# Select Slices in the LIS datasets where count is > 1
+PREFIX qb:      <http://purl.org/linked-data/cube#>
+PREFIX traces-qb:  <http://purl.org/net/traces/dataset/qb/>
+
+
+SELECT DISTINCT ?slice
+WHERE {
+    traces-qb:Seasonaly-LIS-dataset qb:slice ?slice .
+    ?slice qb:observation ?obs ;
+           traces-qb:dimensionArea ?dimFixedArea ;
+           traces-qb:dimensionIndice ?dimFixedIndice ;
+           qb:sliceStructure    traces-qb:LIS-sliceByTimeAllSeasons . # Each slice instance has a structure
+    {
+        SELECT ?dimFixedArea ?dimFixedIndice
+        WHERE {
+            ?slice qb:observation ?obs ;
+                   traces-qb:dimensionArea ?dimFixedArea ;
+                   traces-qb:dimensionIndice ?dimFixedIndice ;
+                   qb:sliceStructure    traces-qb:LIS-sliceByTimeAllSeasons .
+        }
+        GROUP BY ?dimFixedArea ?dimFixedIndice
+        HAVING (COUNT(DISTINCT ?slice) > 1)
+    }
+}
+
+
+
